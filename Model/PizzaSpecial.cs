@@ -15,6 +15,7 @@
 
         public string ImageUrl { get; set; }
 
-        public string GetFormattedBasePrice() => BasePrice.ToString("0.00");
+// This is a helper method to format the base price as a string with a dollar sign and commas
+        public string GetFormattedBasePrice() => BasePrice.ToString("$#,##0", System.Globalization.CultureInfo.InvariantCulture);
     }
 }

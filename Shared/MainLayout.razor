@@ -1,6 +1,31 @@
 @inherits LayoutComponentBase
 
-<div class="content">
+<div id="app">
+
+  <header class="top-bar">
+    <a class="logo" href="">
+      <img src="img/logo.svg" />
+    </a>
+
+    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
+      <img src="img/pizza-slice.svg" />
+      <div>Get Pizza</div>
+    </NavLink>
+
+    <NavLink href="myorders" class="nav-tab">
+      <img src="img/bike.svg" />
+      <div>My Orders</div>
+    </NavLink>
+  </header>
+
+  <div class="content">
     @Body
+  </div>
+
+  <footer>
+    <h5>&copy; Blazing Pizza @DateTime.UtcNow.Year</h5>
+    <h6>Cristian Moisés De La Hoz Escorcia - Colombia <span class="bandera-colombia"></span></h6>
+  </footer>
+
 </div>
 
