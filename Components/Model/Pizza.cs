@@ -1,4 +1,4 @@
-﻿namespace BlazingPizza;
+﻿namespace BlazingPizza.Components.Model;
 
 /// <summary>
 /// Represents a customized pizza as part of an order
@@ -13,13 +13,13 @@ public class Pizza
 
     public int OrderId { get; set; }
 
-    public PizzaSpecial Special { get; set; }
+    public PizzaSpecial Special { get; set; } = new();
 
     public int SpecialId { get; set; }
 
     public int Size { get; set; }
 
-    public List<PizzaTopping> Toppings { get; set; }
+    public List<PizzaTopping> Toppings { get; set; } = new();
 
     public decimal GetBasePrice()
     {

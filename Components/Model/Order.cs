@@ -1,10 +1,10 @@
-﻿namespace BlazingPizza;
+﻿namespace BlazingPizza.Components.Model;
 
 public class Order
 {
     public int OrderId { get; set; }
 
-    public string UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
 
     public DateTime CreatedTime { get; set; }
 
