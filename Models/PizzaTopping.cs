@@ -1,4 +1,4 @@
-﻿namespace BlazingPizza
+﻿namespace SQLiteAPI.Models
 {
     public class PizzaTopping
     {

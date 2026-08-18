@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlazingPizza
+namespace SQLiteAPI.Models
 {
     public class OrderWithStatus
     {

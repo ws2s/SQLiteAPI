@@ -1,5 +1,5 @@
 ﻿
-namespace BlazingPizza
+namespace SQLiteAPI.Models
 {
     public class Address
     {

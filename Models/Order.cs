@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BlazingPizza
+namespace SQLiteAPI.Models
 {
     public class Order
     {
