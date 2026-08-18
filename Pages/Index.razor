@@ -1,4 +1,43 @@
 @page "/"
+@inject AppData appData
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
 
-<h1>SQLiteAPI</h1>
-		
+@using SQLiteAPI.Models
+
+<div class="main">
+  <h1>Blazing Pizzas</h1>
+  <ul class="pizza-cards">
+    @if (appData.specials != null && appData.specials.Count != 0)
+    {
+      @foreach (PizzaSpecial special in appData.specials)
+      {
+        <li style="background-image: url('@special.ImageUrl')">
+          <div class="pizza-info">
+              <span class="title">@special.Name</span>
+                  @special.Description
+                <span class="price">@special.GetFormattedBasePrice()</span>
+          </div>
+        </li>
+      }
+    }
+  </ul>
+</div>
+
+@code {
+    List<PizzaSpecial> specials = new List<PizzaSpecial>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (appData.PageInitialized)
+        {
+            appData.PageInitialized = false;
+            return;
+        }
+
+        appData.PageInitialized = true;
+
+        specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
+        appData.specials = specials;
+    }
+}

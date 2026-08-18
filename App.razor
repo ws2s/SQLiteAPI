@@ -1,4 +1,6 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+﻿@inject AppData appData
+
+<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" />
     </Found>
@@ -8,3 +10,18 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code{
+    [Parameter]
+    public string CompID {get; set;}
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (appData.PageInitialized)
+            return;
+
+        appData.CompID = CompID ?? "ws2s";
+        //LDAPEmployee user = new LDAPEmployee();
+        //user = LDAP.GetLDAPInfo(appData.CompID);
+    }
+}
