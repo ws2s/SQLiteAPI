@@ -8,6 +8,7 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddScoped<OrderState>();
 builder.Services.AddSingleton<AppData>();
 builder.Services.AddSqlite<APIContext>("Data Source=sqlite.db");
 
