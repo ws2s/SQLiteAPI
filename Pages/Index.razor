@@ -10,10 +10,14 @@
     <a class="logo" href="">
         <img src="img/logo.svg" />
     </a>
-    <a href="" class="nav-tab active" >
+    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
         <img src="img/pizza-slice.svg" />
         <div>Get Pizza</div>
-    </a>    
+    </NavLink>
+    <NavLink href="myorders" class="nav-tab">
+        <img src="img/bike.svg" />
+        <div>My Orders</div>
+    </NavLink>
 </div>
 <div class="main">
   <h1>Blazing Pizzas</h1>
@@ -75,7 +79,6 @@
 </div>
 
 @code {
-    List<PizzaSpecial> specials = new List<PizzaSpecial>();
     Order order => OrderState.Order;
     protected override async Task OnInitializedAsync()
     {
@@ -86,8 +89,6 @@
         }
 
         appData.PageInitialized = true;
-
-        specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "specials");
-        appData.specials = specials;
+        appData.specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(appData.BaseUri + "specials");
     }
 }
