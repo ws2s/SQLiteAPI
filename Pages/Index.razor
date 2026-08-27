@@ -4,27 +4,12 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 
-@using SQLiteAPI.Models
-
-<div class="top-bar">
-    <a class="logo" href="">
-        <img src="img/logo.svg" />
-    </a>
-    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
-        <img src="img/pizza-slice.svg" />
-        <div>Get Pizza</div>
-    </NavLink>
-    <NavLink href="myorders" class="nav-tab">
-        <img src="img/bike.svg" />
-        <div>My Orders</div>
-    </NavLink>
-</div>
 <div class="main">
   <h1>Blazing Pizzas</h1>
   <ul class="pizza-cards">
-    @if (appData.specials != null && appData.specials.Count != 0)
+    @if (specials != null && specials.Count != 0)
     {
-      @foreach (PizzaSpecial special in appData.specials)
+      @foreach (PizzaSpecial special in specials)
       {
         <li @onclick="@(() => OrderState.ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
           <div class="pizza-info">
@@ -80,15 +65,9 @@
 
 @code {
     Order order => OrderState.Order;
+    List<PizzaSpecial> specials = new List<PizzaSpecial>();
     protected override async Task OnInitializedAsync()
     {
-        if (appData.PageInitialized)
-        {
-            appData.PageInitialized = false;
-            return;
-        }
-
-        appData.PageInitialized = true;
-        appData.specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(appData.BaseUri + "specials");
+        specials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(appData.BaseUri + "specials");
     }
 }

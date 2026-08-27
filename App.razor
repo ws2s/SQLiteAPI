@@ -1,7 +1,16 @@
 ﻿@inject AppData appData
 @inject NavigationManager NavigationManager
-
-<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+<Router AppAssembly="typeof(Program).Assembly" Context="routeData">
+    <Found>
+        <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="typeof(MainLayout)">
+            <div class="main">Sorry, there's nothing at this address.</div>
+        </LayoutView>
+    </NotFound>
+</Router>
+<!-- Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" />
     </Found>
@@ -10,7 +19,7 @@
             <p>Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>
-</Router>
+</Router -->
 
 @code{
     [Parameter]
@@ -18,11 +27,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        appData.BaseUri = appData.BaseUri?? NavigationManager.BaseUri;
-        if (appData.PageInitialized)
-            return;
-
+        string currentUri = NavigationManager.Uri; // Full URL in browser
+        string baseUri = new Uri(currentUri).GetLeftPart(UriPartial.Authority) + "/";
         appData.CompID = CompID ?? "ws2s";
+        appData.BaseUri ??= NavigationManager.BaseUri;
         //LDAPEmployee user = new LDAPEmployee();
         //user = LDAP.GetLDAPInfo(appData.CompID);
     }
