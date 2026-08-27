@@ -1,5 +1,7 @@
 ﻿@inject AppData appData
+@inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+
 <Router AppAssembly="typeof(Program).Assembly" Context="routeData">
     <Found>
         <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
@@ -24,13 +26,15 @@
 @code{
     [Parameter]
     public string CompID {get; set;}
-
+    LookupSpecialApprover approver;
     protected override async Task OnInitializedAsync()
     {
         string currentUri = NavigationManager.Uri; // Full URL in browser
         string baseUri = new Uri(currentUri).GetLeftPart(UriPartial.Authority) + "/";
-        appData.CompID = CompID ?? "ws2s";
         appData.BaseUri ??= NavigationManager.BaseUri;
+        appData.CompID = CompID ?? "ws2s";
+        approver = await HttpClient.GetFromJsonAsync<LookupSpecialApprover>($"{appData.BaseUri}KeyRequest/{appData.CompID}");
+        
         //LDAPEmployee user = new LDAPEmployee();
         //user = LDAP.GetLDAPInfo(appData.CompID);
     }

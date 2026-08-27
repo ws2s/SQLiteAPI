@@ -12,6 +12,12 @@ public class APIContext : DbContext
     public DbSet<Pizza> Pizzas { get; set; }
     public DbSet<Topping> Toppings { get; set; }
     public DbSet<PizzaSpecial> Specials { get; set; }
+    
+    public DbSet<LookupApprovalType> ApprovalTypes { get; set; }
+    public DbSet<LookupJustification> Justifications { get; set; }
+    public DbSet<LookupPickupLocation> PickupLocations { get; set; }
+    public DbSet<LookupRequestType> RequestTypes { get; set; }
+    public DbSet<LookupSpecialApprover> SpecialApprovers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
